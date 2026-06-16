@@ -1,0 +1,1 @@
+# pinyin-zhuyin-reader-extension
