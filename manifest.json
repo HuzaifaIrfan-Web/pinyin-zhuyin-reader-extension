@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Pinyin Zhuyin Reader",
+  "version": "1.1.0",
+  "description": "Converts Pinyin text into Zhuyin (Bopomofo) and viceversa in real time, helping learners to use zhuyin or pinyin web content.",
+  "author": "Huzaifa Irfan",
+  "homepage_url": "https://github.com/HuzaifaIrfan-Web/pinyin-zhuyin-converter-extension",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_popup": "src/popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "src/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
