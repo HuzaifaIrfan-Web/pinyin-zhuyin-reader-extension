@@ -89,8 +89,8 @@ function playAudioFile(numbered_pinyin, audioTypeDongYoyo, zhuyin) {
   const audio = new Audio(audioUrl);
 
   audio.play().catch((error) => {
-    console.error("Error playing audio:", error);
-    console.log(`playing tts ${zhuyin}`)
+    // console.error("Error playing audio:", error);
+    // console.log(`playing tts ${zhuyin}`)
     playTTS(zhuyin);
   });
 
@@ -104,18 +104,45 @@ function normalizeTone(str) {
   return str.replace(/\d+$/, "") + "1";
 }
 
+
+const individualsPinyinIntials = {
+  b: "bo",
+  p: "po",
+  m: "mo",
+  f: "fo",
+  d: "de",
+  t: "te",
+  n: "ne",
+  l: "le",
+  g: "ge",
+  k: "ke",
+  h: "he",
+  j: "ji",
+  q: "qi",
+  x: "xi"
+}
+
+function replaceIndividualsPinyinIntials(str) {
+  return str.replace(
+    /(?<![a-zA-Z])([bpmfdtnlgkhjqx])(?![a-zA-Z])/g,
+    (match, letter) => individualsPinyinIntials[letter]
+  );
+}
+
 function convertNumberedPinyin(numbered_pinyin) {
-  
+
   let converted = numbered_pinyin;
-  
 
-    converted = converted.replace(/ê/g, "ye");
+
+  converted = converted.replace(/ê/g, "ye");
   converted = converted.replace(/ü/g, "v");
-    converted = converted.replace(/:/g, "");
-  
-  converted=normalizeTone(converted);
+  converted = converted.replace(/:/g, "");
 
-  console.log("Converted Numbered Pinyin:", converted);
+  converted=replaceIndividualsPinyinIntials(converted)
+
+  converted = normalizeTone(converted);
+
+  // console.log("Converted Numbered Pinyin:", converted);
   return converted
 }
 
@@ -134,9 +161,9 @@ function playWord(word) {
   if (pinyin.length === 0) return;
   if (numbered_pinyin.length === 0) return;
 
-  console.log("Zhuyin:", zhuyin);
-  console.log("Pinyin:", pinyin);
-  console.log("Numbered Pinyin:", numbered_pinyin);
+  // console.log("Zhuyin:", zhuyin);
+  // console.log("Pinyin:", pinyin);
+  // console.log("Numbered Pinyin:", numbered_pinyin);
 
 
   if (audioType === AudioType.Off) {
@@ -169,7 +196,7 @@ function playWord(word) {
     } else {
       if (audioType === AudioType.AltYoyoDong) {
         lastPlayedAudioType = AudioType.Yoyo;
-      }else if (audioType === AudioType.AltDongYoyo) {
+      } else if (audioType === AudioType.AltDongYoyo) {
         lastPlayedAudioType = AudioType.Dong;
       }
     }
@@ -236,6 +263,6 @@ document.addEventListener("click", (e) => {
 
   if (word.length === 0) return;
 
-  console.log("Clicked word:", word);
+  // console.log("Clicked word:", word);
   playWord(word);
 });
