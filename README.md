@@ -1,8 +1,12 @@
 # Pinyin Zhuyin Reader - Web Browser Extension
 v1.0.0 
+https://chromewebstore.google.com/detail/jmiggbkefmnnojikmnfkedemogncejhe/
 
 Last Updated on 2026-06-17
 <hr />
+
+
+
 
 
 # 🚀 Usage
@@ -18,8 +22,33 @@ https://mandarinbean.com/dumplings-and-tangyuan/
 
 
 
+## Other Extensions to use with it.
+
+### Pinyin Zhuyin Convertor Extension
+
+https://github.com/HuzaifaIrfan-Web/pinyin-zhuyin-converter-extension
+
+https://chromewebstore.google.com/detail/jncooonmklbnkoahmfcfdmgfbfflpcgi/
 
 
+### Zhongwen CHinese English Dictionary
+https://chromewebstore.google.com/detail/zhongwen-chinese-english/kkmlkkjojmombglmlpbpapmhcaljjkde
+
+### Annotate Pinyin on Hanzi (if no pinyin)
+https://chromewebstore.google.com/detail/pinyin-annotator/ajacnabcdcbcdoijcakhgglokndlnpak
+
+https://chromewebstore.google.com/detail/pinyin-overlay-%E6%8B%BC%E9%9F%B3%E5%8F%A0%E5%8A%A0/eokiejenkmnfboflfklbbcdogfhpjccl
+
+#### Pinyin reader
+https://chromewebstore.google.com/detail/pinyin-reader/jknjchjknclcjhhelbiijomgnneofkdf
+
+
+### Annotate Zhuyin on Hanzi (if no Zhuyin)
+
+https://chromewebstore.google.com/detail/zhuyin-reader-bopomofo-pr/danhigmbalbbfoogbnmojpmjmaidemad
+
+#### Bopomofo reader
+https://chromewebstore.google.com/detail/bopomofo-reader/jkibgddokcnhedkhmleaohojhlnemmkg
 
 # 📝 Documentation
 [Privacy-Policy.md](Privacy-Policy.md)
