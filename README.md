@@ -8,6 +8,12 @@ Last Updated on 2026-06-17
 
 
 
+## 🎬 Demo
+
+[▶️![Demo](https://img.youtube.com/vi/23YITX75awo/maxresdefault.jpg)](https://www.youtube.com/watch?v=23YITX75awo)
+
+
+
 
 # 🚀 Usage
 - Click on Pinyin or Zhuyin text to instantly hear or read pronunciation, helping learners practice pronunciation while browsing.
