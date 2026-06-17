@@ -1,6 +1,5 @@
 import { p2z, z2p } from "pinyin-to-zhuyin";
 
-const running_interval = 100; // ms
 
 const p2z_options = {
   tonemarks: true,
@@ -11,95 +10,81 @@ const p2z_options = {
 const z2p_options = {
   erhuaTone: "after-r",
   nlUmlautU: "preserveUmlaut",
-  tonemarks: true,
+  tonemarks: false,
   markNeutralTone: false,
   apostrophes: "auto"
 };
 
-let intervalId = null;
-let currentMode = null;
+
+function playAudio(word) {
+
+  const zhuyin = p2z(word, p2z_options);
+  const pinyin = z2p(zhuyin, z2p_options);
+
+  console.log("Zhuyin:", zhuyin);
+  console.log("Pinyin:", pinyin);
+
+  const utterance = new SpeechSynthesisUtterance(zhuyin);
+  utterance.lang = "zh-CN";
+  speechSynthesis.speak(utterance);
+
+  // const audioUrl = `https://fanyi.baidu.com/gettts?lan=zh&text=${encodeURIComponent(word)}&spd=3&source=web`;
 
 
-function splitWords(text) {
-  return text.split(/(\s+)/);
-}
-
-function convert(text, mode) {
-  return splitWords(text)
-    .map(part => {
-      if (/\s+/.test(part)) return part;
-      try {
-        return mode === "p2z"
-          ? p2z(part, p2z_options)
-          : z2p(part, z2p_options);
-      } catch {
-        return part;
-      }
-    })
-    .join("");
-}
-
-function walk(node, mode) {
-  const blacklist = ["SCRIPT", "STYLE", "NOSCRIPT"];
-
-  if (node.nodeType === 3) {
-    const original = node.nodeValue;
-    if (!original.trim()) return;
-
-    const updated = convert(original, mode);
-    node.nodeValue = updated;
-    return;
-  }
-
-  if (blacklist.includes(node.nodeName)) return;
-
-  for (const child of node.childNodes) {
-    walk(child, mode);
-  }
+  // const audio = new Audio(audioUrl);
+  // audio.play().catch((error) => {
+  //   console.error("Error playing audio:", error);
+  // });
 }
 
 
-function start(mode) {
-  stop(); // prevent duplicates
 
-  currentMode = mode;
 
-  intervalId = setInterval(() => {
-    walk(document.body, currentMode);
-  }, running_interval);
 
-  chrome.storage.local.set({
-    running: true,
-    mode: currentMode
-  });
+function isWordChar(ch) {
+  return /[a-zA-Z0-9āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜüÜ\u3105-\u312F˙ˊˇˋ':]/u.test(ch);
 }
 
-function stop() {
-  if (intervalId) clearInterval(intervalId);
-  intervalId = null;
+document.addEventListener("click", (e) => {
 
-  chrome.storage.local.set({
-    running: false,
-    mode: null
-  });
-}
+  // const selectedText = window.getSelection().toString().trim().toLowerCase(); 
+  // if (!selectedText) return;
 
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.type === "RUN_ONCE") {
-    walk(document.body, msg.mode);
+  //     console.log("Selected text:", selectedText);
+
+  //   // const target = e.target;
+
+  //   // if (!target || !target.textContent) return;
+
+  //   // const text = target.textContent.trim().toLowerCase();
+
+  //   // console.log("Clicked text:", text);
+
+
+
+  const range = document.caretRangeFromPoint?.(e.clientX, e.clientY);
+  if (!range) return;
+
+  const node = range.startContainer;
+
+  if (node.nodeType !== Node.TEXT_NODE) return;
+
+  const text = node.textContent;
+  const offset = range.startOffset;
+
+  let start = offset;
+  let end = offset;
+
+  while (start > 0 && isWordChar(text[start - 1])) {
+    start--;
   }
 
-  if (msg.type === "START") {
-    start(msg.mode);
+  while (end < text.length && isWordChar(text[end])) {
+    end++;
   }
 
-  if (msg.type === "STOP") {
-    stop();
-  }
+  const word = text.slice(start, end).trim().toLowerCase();
+
+  console.log("Clicked word:", word);
+  playAudio(word);
 });
-
-// chrome.storage.local.get(["running", "mode"], (data) => {
-//   if (data.running && data.mode) {
-//     start(data.mode);
-//   }
-// });

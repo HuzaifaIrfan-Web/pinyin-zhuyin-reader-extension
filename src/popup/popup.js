@@ -18,26 +18,28 @@ document.getElementById("rz2p").addEventListener("click", () => {
   send("RUN_ONCE", "z2p");
 });
 
-const sp2zBtn = document.getElementById("sp2z");
+
+const sp2zCheckbox = document.getElementById("sp2z");
+const sz2pCheckbox = document.getElementById("sz2p");
 
 let runningP2Z = false;
+let runningZ2P = false;
 
-sp2zBtn.addEventListener("click", () => {
-  runningP2Z = !runningP2Z;
+
+
+sp2zCheckbox.addEventListener("click", () => {
+  runningP2Z = sp2zCheckbox.checked;
 
   send(runningP2Z ? "START" : "STOP", "p2z");
 
-  sp2zBtn.textContent = runningP2Z ? "Stop Pinyin→Zhuyin" : "Start Pinyin→Zhuyin";
+  // sp2zBtn.textContent = runningP2Z ? "Stop Pinyin→Zhuyin" : "Start Pinyin→Zhuyin";
 });
 
-const sz2pBtn = document.getElementById("sz2p");
 
-let runningZ2P = false;
-
-sz2pBtn.addEventListener("click", () => {
-  runningZ2P = !runningZ2P;
+sz2pCheckbox.addEventListener("click", () => {
+  runningZ2P = sz2pCheckbox.checked;
 
   send(runningZ2P ? "START" : "STOP", "z2p");
 
-  sz2pBtn.textContent = runningZ2P ? "Stop Zhuyin→Pinyin" : "Start Zhuyin→Pinyin";
+  // sz2pBtn.textContent = runningZ2P ? "Stop Zhuyin→Pinyin" : "Start Zhuyin→Pinyin";
 });

@@ -1,0 +1,61 @@
+diff --git a/node_modules/pinyin-to-zhuyin/dist/pinyin-to-zhuyin.esm.js b/node_modules/pinyin-to-zhuyin/dist/pinyin-to-zhuyin.esm.js
+index c59d416..263b687 100644
+--- a/node_modules/pinyin-to-zhuyin/dist/pinyin-to-zhuyin.esm.js
++++ b/node_modules/pinyin-to-zhuyin/dist/pinyin-to-zhuyin.esm.js
+@@ -272,7 +272,13 @@ const syllableMatcher = new RegExp(
+ const bpmfTransforms = [
+   // Pre-processing transformations (highest priority)
+   { "・": " " },      // turn name separator dot into a space
+-  { "v": "ü" },       // v as ü
++  {
++    "v": "ü",  // v as ü
++    //  "u:": "ü",  "e\\^": "ê",  // Patched
++  },
++
++  { "^r$": "ㄖ" }, // Patched: safe rule there should be nothing after and before r
++
+   { "er([1-5])": "ㄦ$1" },     // er + tone number → ㄦ + tone number
+   { "r([1-5])": "ㄦ$1" },      // r + tone number → ㄦ + tone number (for erhua)
+   { "r(?=(?:$|[^a-zü'1-5]))": "ㄦ" }, // bare erhua 'r' before boundary → ㄦ
+@@ -283,7 +289,8 @@ const bpmfTransforms = [
+     "yao": "ㄧㄠ", "you": "ㄧㄡ", "yue": "ㄩㄝ", "yong": "ㄩㄥ",
+     "yuan": "ㄩㄢ", "ying": "ㄧㄥ", "yun": "ㄩㄣ",
+     "yang": "ㄧㄤ", "yan": "ㄧㄢ", "yin": "ㄧㄣ", "yai": "ㄧㄞ",
+-    "wei": "ㄨㄟ", "wang": "ㄨㄤ", "wan": "ㄨㄢ", "weng": "ㄨㄥ", "wen": "ㄨㄣ", "wai": "ㄨㄞ"
++    "wei": "ㄨㄟ", "wang": "ㄨㄤ", "wan": "ㄨㄢ", "weng": "ㄨㄥ", "wen": "ㄨㄣ", "wai": "ㄨㄞ",
++    "uei": "ㄨㄟ", "ueng": "ㄨㄥ", "uen": "ㄨㄣ" // patch: handle "uei" as an alternative form of "wei" and "ueng"/"uen" as alternative forms of "weng"/"wen" (e.g., in Wubi input)
+   },
+   { "iang": "ㄧㄤ", "ing": "ㄧㄥ" },
+   { "iai": "ㄧㄞ", "iao": "ㄧㄠ", "iu": "ㄧㄡ", "ian": "ㄧㄢ", "in": "ㄧㄣ" },
+@@ -292,7 +299,10 @@ const bpmfTransforms = [
+     "uo": "ㄨㄛ", "ui": "ㄨㄟ", "un": "ㄨㄣ", "ün": "ㄩㄣ", "iong": "ㄩㄥ", "ong": "ㄨㄥ"
+   },
+   { "uan": "ㄩㄢ", "un": "ㄩㄣ", "ong": "ㄩㄥ", "ue": "ㄩㄝ" },
+-  { "zhi": "ㄓ", "chi": "ㄔ", "shi": "ㄕ", "ri": "ㄖ", "ang": "ㄤ", "eng": "ㄥ", "ai": "ㄞ", "ei": "ㄟ", "ao": "ㄠ", "ou": "ㄡ", "er": "ㄦ" },
++  {
++    "zhi": "ㄓ", "chi": "ㄔ", "shi": "ㄕ", "ri": "ㄖ", "ang": "ㄤ", "eng": "ㄥ", "ai": "ㄞ", "ei": "ㄟ", "ao": "ㄠ", "ou": "ㄡ", "er": "ㄦ",
++    "au": "ㄠ" // Patched: handle "au" as an alternative form of "ao" (e.g., in Wubi input)
++  },
+   {
+     "an": "ㄢ", "en": "ㄣ", "wa": "ㄨㄚ", "wo": "ㄨㄛ", "wu": "ㄨ",
+     "ya": "ㄧㄚ", "yo": "ㄧㄛ", "ye": "ㄧㄝ", "yu": "ㄩ"
+@@ -304,13 +314,18 @@ const bpmfTransforms = [
+     "r": "ㄖ", "yi": "ㄧ", "üe": "ㄩㄝ"
+   },
+   {
++
+     "b": "ㄅ", "p": "ㄆ", "m": "ㄇ", "f": "ㄈ",
+     "d": "ㄉ", "t": "ㄊ", "n": "ㄋ", "l": "ㄌ",
+     "g": "ㄍ", "k": "ㄎ", "h": "ㄏ",
+     "j": "ㄐ", "q": "ㄑ", "x": "ㄒ",
+     "z": "ㄗ", "c": "ㄘ", "s": "ㄙ",
+     "i": "ㄧ", "u": "ㄨ", "ü": "ㄩ",
+-    "a": "ㄚ", "o": "ㄛ", "e": "ㄜ"
++    "a": "ㄚ", "o": "ㄛ", "e": "ㄜ",
++
++    "ê": "ㄝ", "y": "ㄧ", "w": "ㄨ" // Patched: Alternative initials for y and w (e.g., in Wubi input)
++
++
+   },
+ 
+   // Post-processing transformations (after basic conversions)
