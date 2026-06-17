@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
 
-const dongOutputDir = "src/audio/dong";
-const yoyoOutputDir = "src/audio/yoyo";
+const dongOutputDir = "public/audio/dong";
+const yoyoOutputDir = "public/audio/yoyo";
 
 function getFilenames(dir) {
   return fs.readdirSync(dir).filter((name) => fs.statSync(path.join(dir, name)).isFile());

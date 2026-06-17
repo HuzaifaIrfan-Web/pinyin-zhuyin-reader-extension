@@ -38,9 +38,9 @@
     }
   ],
 
-    "web_accessible_resources": [
+  "web_accessible_resources": [
     {
-      "resources": ["src/audio/*"],
+      "resources": ["audio/*"],
       "matches": ["<all_urls>"]
     }
   ],

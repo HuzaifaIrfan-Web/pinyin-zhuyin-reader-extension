@@ -5,8 +5,8 @@
 
 const dongDownloadUrl = "https://data.dong-chinese.com/pinyin/b/"
 const yoyoDownloadUrl = "https://cdn.yoyochinese.com/audio/pychart/"
-const dongOutputDir = "src/audio/dong";
-const yoyoOutputDir = "src/audio/yoyo";
+const dongOutputDir = "public/audio/dong";
+const yoyoOutputDir = "public/audio/yoyo";
 
 
 

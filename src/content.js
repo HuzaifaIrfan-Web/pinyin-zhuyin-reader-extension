@@ -10,23 +10,53 @@ const p2z_options = {
 const z2p_options = {
   erhuaTone: "after-r",
   nlUmlautU: "preserveUmlaut",
+  tonemarks: true,
+  markNeutralTone: false,
+  apostrophes: "auto"
+};
+
+
+const z2np_options = {
+  erhuaTone: "after-r",
+  nlUmlautU: "preserveUmlaut",
   tonemarks: false,
   markNeutralTone: false,
   apostrophes: "auto"
 };
 
 
-function playAudio(word) {
-
-  const zhuyin = p2z(word, p2z_options);
-  const pinyin = z2p(zhuyin, z2p_options);
-
-  console.log("Zhuyin:", zhuyin);
-  console.log("Pinyin:", pinyin);
+function playTTS(zhuyin) {
 
   const utterance = new SpeechSynthesisUtterance(zhuyin);
   utterance.lang = "zh-CN";
   speechSynthesis.speak(utterance);
+
+}
+
+
+
+
+function playWord(word) {
+
+  const zhuyin = p2z(word, p2z_options);
+  const pinyin = z2p(zhuyin, z2p_options);
+  const numbered_pinyin = z2p(zhuyin, z2np_options);
+
+    if (zhuyin.length === 0) return;
+          if (pinyin.length === 0) return;
+      if (numbered_pinyin.length === 0) return;
+
+  console.log("Zhuyin:", zhuyin);
+  console.log("Pinyin:", pinyin);
+  console.log("Numbered Pinyin:", numbered_pinyin);
+
+
+    const audio = new Audio(
+    chrome.runtime.getURL(`audio/${numbered_pinyin}.mp3`)
+  );
+
+  audio.play().catch(console.error);
+
 
   // const audioUrl = `https://fanyi.baidu.com/gettts?lan=zh&text=${encodeURIComponent(word)}&spd=3&source=web`;
 
@@ -85,6 +115,8 @@ document.addEventListener("click", (e) => {
 
   const word = text.slice(start, end).trim().toLowerCase();
 
+  if (word.length === 0) return;
+
   console.log("Clicked word:", word);
-  playAudio(word);
+  playWord(word);
 });
