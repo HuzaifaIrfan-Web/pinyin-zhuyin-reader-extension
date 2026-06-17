@@ -1,18 +1,20 @@
 # Pinyin Zhuyin Reader - Web Browser Extension
-v1.1.0 
+v1.0.0 
 
-Last Updated on 2026-06-16
+Last Updated on 2026-06-17
 <hr />
 
 
 # 🚀 Usage
-- Converts Pinyin text into Zhuyin (Bopomofo) and viceversa in real time, helping learners to use zhuyin or pinyin web content.
+- Click on Pinyin or Zhuyin text to instantly hear or read pronunciation, helping learners practice pronunciation while browsing.
 
 
 ## Test on
 https://user.eng.umd.edu/~nsw/chinese/pinyin.htm
 
 https://yoyochinese.com/chinese-learning-tools/Mandarin-Chinese-pronunciation-lesson/pinyin-chart-table
+
+https://mandarinbean.com/dumplings-and-tangyuan/
 
 
 
@@ -23,8 +25,11 @@ https://yoyochinese.com/chinese-learning-tools/Mandarin-Chinese-pronunciation-le
 [Privacy-Policy.md](Privacy-Policy.md)
 
 # 📚 References
-https://github.com/logicmason/pinyin-zhuyin
+- https://github.com/logicmason/pinyin-zhuyin
 <!-- https://github.com/peterolson/pinyin-zhuyin -->
+- https://yoyochinese.com/chinese-learning-tools/Mandarin-Chinese-pronunciation-lesson/pinyin-chart-table
+- https://www.dong-chinese.com/learn/sounds/zhuyin/introduction
+
 
 
 

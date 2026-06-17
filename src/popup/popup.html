@@ -1,44 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./popup.css">
-    <title>Pinyin Zhuyin Reader</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./popup.css">
+  <title>Pinyin Zhuyin Reader</title>
 </head>
-  <body>
 
-          <div class="wrapper">
-  <!-- Your main popup content goes here -->
-  <main class="content">
+<body>
 
-   <h2>Pinyin Zhuyin Reader</h2>
+  <div class="wrapper">
+    <!-- Your main popup content goes here -->
+    <main class="content">
 
-   <h3>Pinyin to Zhuyin</h3>
-    <button id="rp2z">Run Pinyin→Zhuyin</button>
+      <h2>Pinyin Zhuyin Reader</h2>
 
-    <label for="sp2z">Auto Pinyin→Zhuyin</label>
-    <input type="checkbox" id="sp2z" name="sp2z"> 
-        <!-- <button id="sp2z">Start Pinyin→Zhuyin</button> -->
+      Reader Type:
+      <div class="audio-type-options">
+        <label>
+          <input type="radio" name="audioType" value="off" checked>
+          Off
+        </label>
 
-   <h3>Zhuyin to Pinyin</h3>
-    <button id="rz2p">Run Zhuyin→Pinyin</button>
-    <label for="sz2p">Auto Zhuyin→Pinyin</label>
-    <input type="checkbox" id="sz2p" name="sz2p"> 
-      <!-- <button id="sz2p">Start Zhuyin→Pinyin</button> -->
+        <label>
+          <input type="radio" name="audioType" value="tts">
+          TTS
+        </label>
+        <label>
+          <input type="radio" name="audioType" value="yoyo">
+          Yoyo
+        </label>
+
+        <label>
+          <input type="radio" name="audioType" value="dong">
+          Dong
+        </label>
+
+        <br>
+
+        <label>
+          <input type="radio" name="audioType" value="altyoyodong">
+          Alt Yoyo Dong
+        </label>
+
+        <label>
+          <input type="radio" name="audioType" value="altdongyoyo">
+          Alt Dong Yoyo
+        </label>
+
+      </div>
 
 
 
-  </main>
+    </main>
 
-  <!-- Sticky Footer -->
-  <footer class="popup-footer">
-    <a href="https://huzaifairfan.com/" target="_blank">Developed by Huzaifa Irfan</a>
-    <a href="https://github.com/HuzaifaIrfan-Web/pinyin-zhuyin-reader-extension" target="_blank">Github</a>
-    <span>v1.0.0</span>
-  </footer>
-</div>
+    <!-- Sticky Footer -->
+    <footer class="popup-footer">
+      <a href="https://huzaifairfan.com/" target="_blank">Developed by Huzaifa Irfan</a>
+      <a href="https://github.com/HuzaifaIrfan-Web/pinyin-zhuyin-reader-extension" target="_blank">Github</a>
+      <span>v1.0.0</span>
+    </footer>
+  </div>
 
-    <script type="module" src="./popup.js"></script>
-  </body>
+  <script type="module" src="./popup.js"></script>
+</body>
+
 </html>

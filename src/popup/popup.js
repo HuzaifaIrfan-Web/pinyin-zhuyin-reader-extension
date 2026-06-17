@@ -1,45 +1,26 @@
 
 
-function send(action, mode) {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    chrome.tabs.sendMessage(tabs[0].id, {
-      type: action,
-      mode
-    });
+const STORAGE_KEY = "audioType";
+
+// 1. Load saved value when popup opens
+document.addEventListener("DOMContentLoaded", async () => {
+  const result = await chrome.storage.sync.get(STORAGE_KEY);
+  const savedValue = result[STORAGE_KEY] || "off";
+
+  // set checked radio
+  const radios = document.querySelectorAll('input[name="audioType"]');
+  radios.forEach(radio => {
+    radio.checked = (radio.value === savedValue);
   });
-}
-
-// Run once
-document.getElementById("rp2z").addEventListener("click", () => {
-  send("RUN_ONCE", "p2z");
 });
 
-document.getElementById("rz2p").addEventListener("click", () => {
-  send("RUN_ONCE", "z2p");
-});
-
-
-const sp2zCheckbox = document.getElementById("sp2z");
-const sz2pCheckbox = document.getElementById("sz2p");
-
-let runningP2Z = false;
-let runningZ2P = false;
-
-
-
-sp2zCheckbox.addEventListener("click", () => {
-  runningP2Z = sp2zCheckbox.checked;
-
-  send(runningP2Z ? "START" : "STOP", "p2z");
-
-  // sp2zBtn.textContent = runningP2Z ? "Stop Pinyin→Zhuyin" : "Start Pinyin→Zhuyin";
-});
-
-
-sz2pCheckbox.addEventListener("click", () => {
-  runningZ2P = sz2pCheckbox.checked;
-
-  send(runningZ2P ? "START" : "STOP", "z2p");
-
-  // sz2pBtn.textContent = runningZ2P ? "Stop Zhuyin→Pinyin" : "Start Zhuyin→Pinyin";
+// 2. Save value on change
+document.querySelectorAll('input[name="audioType"]').forEach(radio => {
+  radio.addEventListener("change", async (e) => {
+    if (e.target.checked) {
+      await chrome.storage.sync.set({
+        [STORAGE_KEY]: e.target.value
+      });
+    }
+  });
 });

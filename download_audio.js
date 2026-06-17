@@ -12,8 +12,7 @@ const yoyoOutputDir = "public/audio/yoyo";
 
 
 
-const PINYIN_INITIALS = [
-    "",
+var PINYIN_INITIALS = [
     "b",
     "p",
     "m",
@@ -40,7 +39,7 @@ const PINYIN_INITIALS = [
     "v" // ü-series placeholder
 ];
 
-const PINYIN_FINALS = [
+var PINYIN_FINALS = [
     "a", "ai", "an", "ang", "ao",
     "e", "ei", "en", "eng", "er",
     "i", "ia", "ian", "iang", "iao", "ie", "in", "ing", "iong", "iou",
@@ -53,7 +52,7 @@ const PINYIN_FINALS = [
 ].sort((a, b) => b.length - a.length);
 
 
-const PINYIN_ALL = [
+var PINYIN_ALL = [
     // special syllables
     "zi", "ci", "si", "zhi", "chi", "shi", "ri",
 
@@ -140,14 +139,18 @@ const PINYIN_ALL = [
     "yue", "nüe", "lüe", "jue", "que", "xue",
     "yun", "jun", "qun", "xun",
 
-
+    "nou", "ong",
     "v", "ve",
-    "nv", "lv", 
-    "nue","lue",
-     "nve", "lve"
+    "nv", "lv",
+    "nue", "lue",
+    "nve", "lve"
 
 
 ];
+
+
+PINYIN_ALL = PINYIN_ALL.concat(PINYIN_INITIALS)
+PINYIN_ALL = PINYIN_ALL.concat(PINYIN_FINALS)
 
 
 var downloadCount = 0;
