@@ -153,8 +153,8 @@ let lastPlayedAudioType = null;
 
 function playWord(word) {
 
-  // remove trailing number from zhuyin
-  const zhuyin =  p2z(word, p2z_options).replace(/\d+\s*$/, "");
+ 
+  const zhuyin =  p2z(word, p2z_options) //.replace(/\d+\s*$/, "");  // remove trailing number from zhuyin
 
   const pinyin = z2p(zhuyin, z2p_options);
   const numbered_pinyin = z2p(zhuyin, z2np_options);
