@@ -100,8 +100,8 @@ function normalizeTone(str) {
   // if ends with 1–4 → keep as is
   if (/[1-4]$/.test(str)) return str;
 
-  // otherwise remove ALL trailing numbers and add 1
-  return str.replace(/\d+$/, "") + "1";
+ // otherwise remove ALL trailing numbers and add 1
+ return str.replace(/\d+$/, "") + "1";
 }
 
 
@@ -142,7 +142,7 @@ function convertNumberedPinyin(numbered_pinyin) {
 
   converted = normalizeTone(converted);
 
-  // console.log("Converted Numbered Pinyin:", converted);
+
   return converted
 }
 
@@ -153,7 +153,9 @@ let lastPlayedAudioType = null;
 
 function playWord(word) {
 
-  const zhuyin = p2z(word, p2z_options);
+  // remove trailing number from zhuyin
+  const zhuyin =  p2z(word, p2z_options).replace(/\d+\s*$/, "");
+
   const pinyin = z2p(zhuyin, z2p_options);
   const numbered_pinyin = z2p(zhuyin, z2np_options);
 
@@ -161,6 +163,8 @@ function playWord(word) {
   if (pinyin.length === 0) return;
   if (numbered_pinyin.length === 0) return;
 
+
+  // console.log("Clicked word:", word);
   // console.log("Zhuyin:", zhuyin);
   // console.log("Pinyin:", pinyin);
   // console.log("Numbered Pinyin:", numbered_pinyin);
@@ -176,7 +180,8 @@ function playWord(word) {
   }
 
   const convertedNumberedPinyin = convertNumberedPinyin(numbered_pinyin)
-
+  
+  // console.log("Converted Numbered Pinyin:", convertedNumberedPinyin);
 
   if (audioType === AudioType.Dong || audioType === AudioType.Yoyo) {
     playAudioFile(convertedNumberedPinyin, audioType, zhuyin);
@@ -218,7 +223,7 @@ function playWord(word) {
 
 
 function isWordChar(ch) {
-  return /[a-zA-Z0-9āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜüÜ\u3105-\u312F˙ˊˇˋ':]/u.test(ch);
+  return /[a-zA-Z0-9êāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜüÜ\u3105-\u312F˙ˊˇˋ':]/u.test(ch);
 }
 
 document.addEventListener("click", (e) => {
@@ -263,6 +268,6 @@ document.addEventListener("click", (e) => {
 
   if (word.length === 0) return;
 
-  // console.log("Clicked word:", word);
+
   playWord(word);
 });
