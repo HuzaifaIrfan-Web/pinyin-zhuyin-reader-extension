@@ -1,12 +1,15 @@
 
 
 
-
+const yoyoDownloadUrl = "https://cdn.yoyochinese.com/audio/pychart/"
+const yoyoOutputDir = "public/audio/yoyo";
 
 const dongDownloadUrl = "https://data.dong-chinese.com/pinyin/b/"
-const yoyoDownloadUrl = "https://cdn.yoyochinese.com/audio/pychart/"
 const dongOutputDir = "public/audio/dong";
-const yoyoOutputDir = "public/audio/yoyo";
+
+const archDownloadUrl = "https://www.archchinese.com/swf/"
+const archOutputDir = "public/audio/arch";
+
 
 
 
@@ -284,8 +287,32 @@ function downloadPinyinChart(url, outputDir) {
 }
 
 
-downloadPinyinChart(dongDownloadUrl, dongOutputDir);
-downloadPinyinChart(yoyoDownloadUrl, yoyoOutputDir);
+
+// const readline = require("readline");
+import readline from "node:readline";
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+rl.question("Enter 1:yoyo, 2:dong, or 3:arch ", (input) => {
+    switch (input.trim()) {
+        case "1":
+            downloadPinyinChart(yoyoDownloadUrl, yoyoOutputDir);
+            break;
+        case "2":
+            downloadPinyinChart(dongDownloadUrl, dongOutputDir);
+            break;
+        case "3":
+            downloadPinyinChart(archDownloadUrl, archOutputDir);
+            break;
+        default:
+            console.log("Invalid input");
+    }
+
+    rl.close();
+});
 
 
 

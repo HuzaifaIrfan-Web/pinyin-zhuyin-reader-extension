@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Pinyin Zhuyin Reader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Click on Pinyin or Zhuyin text to instantly hear or read pronunciation, helping learners practice pronunciation while browsing.",
   "author": "Huzaifa Irfan",
   "homepage_url": "https://github.com/HuzaifaIrfan-Web/pinyin-zhuyin-reader-extension",

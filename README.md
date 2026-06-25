@@ -1,8 +1,8 @@
 # Pinyin Zhuyin Reader - Web Browser Extension
-v1.0.0 
+v1.0.1
 https://chromewebstore.google.com/detail/jmiggbkefmnnojikmnfkedemogncejhe/
 
-Last Updated on 2026-06-17
+Last Updated on 2026-06-25
 <hr />
 
 
@@ -37,8 +37,9 @@ https://github.com/HuzaifaIrfan-Web/pinyin-zhuyin-converter-extension
 https://chromewebstore.google.com/detail/jncooonmklbnkoahmfcfdmgfbfflpcgi/
 
 
-### Zhongwen CHinese English Dictionary
-https://chromewebstore.google.com/detail/zhongwen-chinese-english/kkmlkkjojmombglmlpbpapmhcaljjkde
+
+### Linglook CHinese English Dictionary
+https://chromewebstore.google.com/detail/linglook/iokfkfickldinmejhpfcngiocoedkpkh
 
 ### Annotate Pinyin on Hanzi (if no pinyin)
 https://chromewebstore.google.com/detail/pinyin-annotator/ajacnabcdcbcdoijcakhgglokndlnpak
@@ -64,6 +65,7 @@ https://chromewebstore.google.com/detail/bopomofo-reader/jkibgddokcnhedkhmleaoho
 <!-- https://github.com/peterolson/pinyin-zhuyin -->
 - https://yoyochinese.com/chinese-learning-tools/Mandarin-Chinese-pronunciation-lesson/pinyin-chart-table
 - https://www.dong-chinese.com/learn/sounds/zhuyin/introduction
+- https://www.archchinese.com/chinese_pinyin.html
 
 
 

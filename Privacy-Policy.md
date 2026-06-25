@@ -26,6 +26,7 @@ All pronunciation audio files are included locally within the extension package.
 These audio files were originally obtained from educational sources such as:
 - https://www.yoyochinese.com  
 - https://www.dong-chinese.com  
+- https://www.archchinese.com
 
 The files are bundled with the extension and are played locally without making any external network requests.
 

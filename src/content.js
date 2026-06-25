@@ -31,9 +31,26 @@ const AudioType = {
   Off: "off",
   Yoyo: "yoyo",
   Dong: "dong",
+  Arch: "arch",
   TTS: "tts",
+
   AltYoyoDong: "altyoyodong",
-  AltDongYoyo: "altdongyoyo"
+  AltYoyoArch: "altyoyoarch",
+
+  AltDongYoyo: "altdongyoyo",
+  AltDongArch: "altdongarch",
+
+  AltArchYoyo: "altarchyoyo",
+  AltArchDong: "altarchdong",
+
+  AltYoyoDongArch: "altyoyodongarch",
+  AltYoyoArchDong: "altyoyoarchdong",
+
+  AltDongYoyoArch: "altdongyoyoarch",
+  AltDongArchYoyo: "altdongarchyoyo",
+
+  AltArchYoyoDong: "altarchyoyodong",
+  AltArchDongYoyo: "altarchdongyoyo",
 };
 
 const STORAGE_KEY = "audioType";
@@ -100,8 +117,8 @@ function normalizeTone(str) {
   // if ends with 1–4 → keep as is
   if (/[1-4]$/.test(str)) return str;
 
- // otherwise remove ALL trailing numbers and add 1
- return str.replace(/\d+$/, "") + "1";
+  // otherwise remove ALL trailing numbers and add 1
+  return str.replace(/\d+$/, "") + "1";
 }
 
 
@@ -138,7 +155,7 @@ function convertNumberedPinyin(numbered_pinyin) {
   converted = converted.replace(/ü/g, "v");
   converted = converted.replace(/:/g, "");
 
-  converted=replaceIndividualsPinyinIntials(converted)
+  converted = replaceIndividualsPinyinIntials(converted)
 
   converted = normalizeTone(converted);
 
@@ -153,8 +170,8 @@ let lastPlayedAudioType = null;
 
 function playWord(word) {
 
- 
-  const zhuyin =  p2z(word, p2z_options) //.replace(/\d+\s*$/, "");  // remove trailing number from zhuyin
+
+  const zhuyin = p2z(word, p2z_options) //.replace(/\d+\s*$/, "");  // remove trailing number from zhuyin
 
   const pinyin = z2p(zhuyin, z2p_options);
   const numbered_pinyin = z2p(zhuyin, z2np_options);
@@ -180,40 +197,127 @@ function playWord(word) {
   }
 
   const convertedNumberedPinyin = convertNumberedPinyin(numbered_pinyin)
-  
+
   // console.log("Converted Numbered Pinyin:", convertedNumberedPinyin);
 
-  if (audioType === AudioType.Dong || audioType === AudioType.Yoyo) {
+  if (audioType === AudioType.Dong || audioType === AudioType.Yoyo || audioType === AudioType.Arch) {
     playAudioFile(convertedNumberedPinyin, audioType, zhuyin);
     return;
   }
 
-  if (audioType === AudioType.AltYoyoDong || audioType === AudioType.AltDongYoyo) {
 
-    if (lastPlayedNumberedPinyin === convertedNumberedPinyin) {
 
-      if (lastPlayedAudioType === AudioType.Dong) {
-        lastPlayedAudioType = AudioType.Yoyo;
-      } else if (lastPlayedAudioType === AudioType.Yoyo) {
-        lastPlayedAudioType = AudioType.Dong;
-      }
+  if (lastPlayedNumberedPinyin === convertedNumberedPinyin) {
+    switch (audioType) {
+      case AudioType.AltYoyoDong:
+      case AudioType.AltDongYoyo:
+        lastPlayedAudioType =
+          lastPlayedAudioType === AudioType.Dong
+            ? AudioType.Yoyo
+            : AudioType.Dong;
+        break;
 
-    } else {
-      if (audioType === AudioType.AltYoyoDong) {
-        lastPlayedAudioType = AudioType.Yoyo;
-      } else if (audioType === AudioType.AltDongYoyo) {
-        lastPlayedAudioType = AudioType.Dong;
-      }
+      case AudioType.AltYoyoArch:
+      case AudioType.AltArchYoyo:
+        lastPlayedAudioType =
+          lastPlayedAudioType === AudioType.Arch
+            ? AudioType.Yoyo
+            : AudioType.Arch;
+        break;
+
+      case AudioType.AltDongArch:
+      case AudioType.AltArchDong:
+        lastPlayedAudioType =
+          lastPlayedAudioType === AudioType.Arch
+            ? AudioType.Dong
+            : AudioType.Arch;
+        break;
+
+      case AudioType.AltYoyoDongArch:
+        lastPlayedAudioType =
+          lastPlayedAudioType === AudioType.Yoyo
+            ? AudioType.Dong
+            : lastPlayedAudioType === AudioType.Dong
+              ? AudioType.Arch
+              : AudioType.Yoyo;
+        break;
+
+      case AudioType.AltYoyoArchDong:
+        lastPlayedAudioType =
+          lastPlayedAudioType === AudioType.Yoyo
+            ? AudioType.Arch
+            : lastPlayedAudioType === AudioType.Arch
+              ? AudioType.Dong
+              : AudioType.Yoyo;
+        break;
+
+      case AudioType.AltDongYoyoArch:
+        lastPlayedAudioType =
+          lastPlayedAudioType === AudioType.Dong
+            ? AudioType.Yoyo
+            : lastPlayedAudioType === AudioType.Yoyo
+              ? AudioType.Arch
+              : AudioType.Dong;
+        break;
+
+      case AudioType.AltDongArchYoyo:
+        lastPlayedAudioType =
+          lastPlayedAudioType === AudioType.Dong
+            ? AudioType.Arch
+            : lastPlayedAudioType === AudioType.Arch
+              ? AudioType.Yoyo
+              : AudioType.Dong;
+        break;
+
+      case AudioType.AltArchYoyoDong:
+        lastPlayedAudioType =
+          lastPlayedAudioType === AudioType.Arch
+            ? AudioType.Yoyo
+            : lastPlayedAudioType === AudioType.Yoyo
+              ? AudioType.Dong
+              : AudioType.Arch;
+        break;
+
+      case AudioType.AltArchDongYoyo:
+        lastPlayedAudioType =
+          lastPlayedAudioType === AudioType.Arch
+            ? AudioType.Dong
+            : lastPlayedAudioType === AudioType.Dong
+              ? AudioType.Yoyo
+              : AudioType.Arch;
+        break;
     }
-
-    lastPlayedNumberedPinyin = convertedNumberedPinyin;
-
-
-    playAudioFile(lastPlayedNumberedPinyin, lastPlayedAudioType, zhuyin);
-
-    return;
-
+  } else {
+    if (
+      audioType === AudioType.AltYoyoDong ||
+      audioType === AudioType.AltYoyoArch ||
+      audioType === AudioType.AltYoyoDongArch ||
+      audioType === AudioType.AltYoyoArchDong
+    ) {
+      lastPlayedAudioType = AudioType.Yoyo;
+    } else if (
+      audioType === AudioType.AltDongYoyo ||
+      audioType === AudioType.AltDongArch ||
+      audioType === AudioType.AltDongYoyoArch ||
+      audioType === AudioType.AltDongArchYoyo
+    ) {
+      lastPlayedAudioType = AudioType.Dong;
+    } else if (
+      audioType === AudioType.AltArchYoyo ||
+      audioType === AudioType.AltArchDong ||
+      audioType === AudioType.AltArchYoyoDong ||
+      audioType === AudioType.AltArchDongYoyo
+    ) {
+      lastPlayedAudioType = AudioType.Arch;
+    }
   }
+
+  lastPlayedNumberedPinyin = convertedNumberedPinyin;
+
+  playAudioFile(lastPlayedNumberedPinyin, lastPlayedAudioType, zhuyin);
+
+  return;
+
 
 
 }
